@@ -1,5 +1,5 @@
 ﻿@page "/Resultat"
-@using BlazorMBO.Shared; 
+@using BlazorMBO.Shared;
 <h3>Resultat</h3>
 <button @onclick="testclick">SALUT</button>
 <table class="table">
@@ -9,7 +9,7 @@
             <th scope="col">DateDebut</th>
             <th scope="col">DateFin</th>
             <th scope="col">Nb</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -21,26 +21,29 @@
                 <tr>
                     @if (item.IsActif)
                     {
-                    <td>
-                        @item.NomTournois;
-                    </td>
-                    <td>
-                        @item.DateDebutTournois
-                    </td>
-                    <td>
-                        @item.DateFinTournois
-                    </td>
-                    <td>
-                        @item.NbPersonne
-                    </td>
+                        <td>
+                            @item.NomTournois;
+                        </td>
+                        <td>
+                            @item.DateDebutTournois
+                        </td>
+                        <td>
+                            @item.DateFinTournois
+                        </td>
+                        <td>
+                            @item.NbPersonne
+                        </td>
+                       <td>
+                            <button @onclick="@(() => DisableTournois(item))">Supprimer</button>
+                        </td>
                     }
                 </tr>
-                    }
-                
-                    }
+            }
 
-                
-            </tbody>
+        }
+
+
+    </tbody>
 </table>
 
 <table class="table">
@@ -79,14 +82,18 @@
     public string twitter { get; set; } = "Twitter";
     public string fat { get; set; } = "FAT";
     public decimal PUTE { get; set; } = 0.12M;
-    public string tarace { get; set; }="test1";
+    public string tarace { get; set; } = "test1";
     public void testclick()
     {
         tournois.Add(new Tournois() { NomTournois = "CSGO", DateDebutTournois = DateTime.Now, DateFinTournois = DateTime.Now.AddDays(5), NbPersonne = 10, IsActif = true });
         tournois.Add(new Tournois() { NomTournois = "PUBG", DateDebutTournois = DateTime.Now, DateFinTournois = DateTime.Now.AddDays(2), NbPersonne = 50, IsActif = true });
     }
 
-    public void DisableTournois()
+    public void DisableTournois(Tournois untournois)
     {
+        if(tournois.Contains(untournois))
+        {
+            tournois.Remove(untournois);
+        }
     }
 }
