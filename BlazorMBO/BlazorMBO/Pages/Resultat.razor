@@ -1,0 +1,99 @@
+﻿@page "/Resultat"
+@using BlazorMBO.Shared;
+<h3>Resultat</h3>
+<button @onclick="testclick">SALUT</button>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">DateDebut</th>
+            <th scope="col">DateFin</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item in tournois)
+            {
+                <tr>
+                    @if (item.IsActif)
+                    {
+                        <td>
+                            @item.NomTournois;
+                        </td>
+                        <td>
+                            @item.DateDebutTournois
+                        </td>
+                        <td>
+                            @item.DateFinTournois
+                        </td>
+                        <td>
+                            @item.NbPersonne
+                        </td>
+                       <td>
+                            <button @onclick="@(() => DisableTournois(item))">Supprimer</button>
+                        </td>
+                    }
+                </tr>
+            }
+
+        }
+
+
+    </tbody>
+</table>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+        </tr>
+    </tbody>
+</table>
+@code {
+    public List<Tournois> tournois = new List<Tournois>();
+    public int mdo { get; set; } = 5;
+    public string twitter { get; set; } = "Twitter";
+    public string fat { get; set; } = "FAT";
+    public decimal PUTE { get; set; } = 0.12M;
+    public string tarace { get; set; } = "test1";
+    public void testclick()
+    {
+        tournois.Add(new Tournois() { NomTournois = "CSGO", DateDebutTournois = DateTime.Now, DateFinTournois = DateTime.Now.AddDays(5), NbPersonne = 10, IsActif = true });
+        tournois.Add(new Tournois() { NomTournois = "PUBG", DateDebutTournois = DateTime.Now, DateFinTournois = DateTime.Now.AddDays(2), NbPersonne = 50, IsActif = true });
+    }
+
+    public void DisableTournois(Tournois untournois)
+    {
+        if(tournois.Contains(untournois))
+        {
+            tournois.Remove(untournois);
+        }
+    }
+}
