@@ -1,7 +1,9 @@
 ﻿@page "/Resultat"
 @using BlazorMBO.Shared;
+@using BlazorMBO.Shared.Classes;
+@using Newtonsoft.Json;
 <h3>Resultat</h3>
-<button @onclick="testclick">SALUT</button>
+<button @onclick="GetCompetition">SALUT</button>
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -9,7 +11,11 @@
             <th scope="col">DateDebut</th>
             <th scope="col">DateFin</th>
             <th scope="col">Nb</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+
         </tr>
     </thead>
     <tbody>
@@ -19,24 +25,30 @@
             foreach (var item in tournois)
             {
                 <tr>
-                    @if (item.IsActif)
-                    {
-                        <td>
-                            @item.NomTournois;
-                        </td>
-                        <td>
-                            @item.DateDebutTournois
-                        </td>
-                        <td>
-                            @item.DateFinTournois
-                        </td>
-                        <td>
-                            @item.NbPersonne
-                        </td>
-                       <td>
-                            <button @onclick="@(() => DisableTournois(item))">Supprimer</button>
-                        </td>
-                    }
+                    <td>
+                        @item.CompetitionId
+                    </td>
+                    <td>
+                        @item.AreaId
+                    </td>
+                    <td>
+                        @item.AreaName
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Gender
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Format
+                    </td>
+                    <td>
+                        @item.PlayerStatsCoverage
+                    </td>
                 </tr>
             }
 
@@ -77,23 +89,33 @@
     </tbody>
 </table>
 @code {
-    public List<Tournois> tournois = new List<Tournois>();
+    public List<Competition> tournois = new List<Competition>();
     public int mdo { get; set; } = 5;
     public string twitter { get; set; } = "Twitter";
     public string fat { get; set; } = "FAT";
     public decimal PUTE { get; set; } = 0.12M;
     public string tarace { get; set; } = "test1";
-    public void testclick()
+    public void GetCompetition()
     {
-        tournois.Add(new Tournois() { NomTournois = "CSGO", DateDebutTournois = DateTime.Now, DateFinTournois = DateTime.Now.AddDays(5), NbPersonne = 10, IsActif = true });
-        tournois.Add(new Tournois() { NomTournois = "PUBG", DateDebutTournois = DateTime.Now, DateFinTournois = DateTime.Now.AddDays(2), NbPersonne = 50, IsActif = true });
+        HttpClient client = new HttpClient();
+        var reponse = client.GetAsync("https://api.sportsdata.io/v3/csgo/scores/json/Competitions?key=8d1d7a1aec434e6eac991ba5f5ab0b83").Result;
+        string Json = reponse.Content.ReadAsStringAsync().Result;
+        tournois = JsonConvert.DeserializeObject<List<Competition>>(Json);
+
+    }
+    public void GetZone()
+    {
+        HttpClient client = new HttpClient();
+        var response = client.GetAsync("https://api.sportsdata.io/v3/csgo/scores/json/Area?key=8d1d7a1aec434e6eac991ba5f5ab0b83").Result;
+        string Json = response.Content.ReadAsStringAsync().Result;
+        Seasons = JsonConvert.DeserializeObject<List<Saison>>(Json);
     }
 
-    public void DisableTournois(Tournois untournois)
+    /*public void DisableTournois(Tournois untournois)
     {
-        if(tournois.Contains(untournois))
+        if (tournois.Contains(untournois))
         {
             tournois.Remove(untournois);
         }
-    }
+    }*/
 }
