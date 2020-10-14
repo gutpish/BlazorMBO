@@ -4,6 +4,8 @@
 @using Newtonsoft.Json;
 <h3>Resultat</h3>
 <button @onclick="GetCompetition">SALUT</button>
+<button @onclick="GetZone">Bien ?</button>
+<button @onclick="GetTeams">L'équipe</button>
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -57,39 +59,125 @@
 
     </tbody>
 </table>
-
 <table class="table">
-    <thead class="thead-light">
+    <thead class="thead-dark">
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Nom</th>
+            <th scope="col">DateDebut</th>
+            <th scope="col">DateFin</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
+
+
+        @{
+            foreach (var item in saisons)
+            {
+                <tr>
+                    <td>
+                        @item.CompetitionId
+                    </td>
+                    <td>
+                        @item.CompetitionName
+                    </td>
+                    <td>
+                        @item.CurrentSeason
+                    </td>
+                    <td>
+                        @item.StartDate <!-- Formatage de la date -->
+                    </td>
+                    <td>
+                        @item.EndDate <!-- Formatage de la date -->
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Rounds
+                    </td>
+                    <td>
+                        @item.SeasonId
+                    </td>
+                    <td>
+                        @item.Season
+                    </td>
+                </tr>
+            }
+
+        }
+
+
     </tbody>
 </table>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">DateDebut</th>
+            <th scope="col">DateFin</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+            <th scope="col">Nb</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item in teams)
+            {
+                <tr>
+                    <td>
+                        @item.AreaName
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.ShortName
+                    </td>
+                    <td>
+                        @item.Key <!-- Formatage de la date -->
+                    </td>
+                    <td>
+                        @item.YouTube <!-- Formatage de la date -->
+                    </td>
+                    <td>
+                        @item.Website
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.Founded
+                    </td>
+                </tr>
+            }
+
+        }
+
+
+    </tbody>
+</table>
+
 @code {
     public List<Competition> tournois = new List<Competition>();
+    public List<Saison> saisons = new List<Saison>();
+    public List<Team> teams = new List<Team>();
     public int mdo { get; set; } = 5;
     public string twitter { get; set; } = "Twitter";
     public string fat { get; set; } = "FAT";
@@ -106,9 +194,16 @@
     public void GetZone()
     {
         HttpClient client = new HttpClient();
-        var response = client.GetAsync("https://api.sportsdata.io/v3/csgo/scores/json/Area?key=8d1d7a1aec434e6eac991ba5f5ab0b83").Result;
+        var response = client.GetAsync("https://api.sportsdata.io/v3/csgo/scores/json/SeasonTeams/100000023?key=8d1d7a1aec434e6eac991ba5f5ab0b83").Result;
         string Json = response.Content.ReadAsStringAsync().Result;
-        Seasons = JsonConvert.DeserializeObject<List<Saison>>(Json);
+        saisons = JsonConvert.DeserializeObject<List<Saison>>(Json);
+    }
+    public void GetTeams()
+    {
+        HttpClient client = new HttpClient();
+        var reponse = client.GetAsync("https://api.sportsdata.io/v3/csgo/scores/json/Teams?key=8d1d7a1aec434e6eac991ba5f5ab0b83").Result;
+        string Json = reponse.Content.ReadAsStringAsync().Result;
+        teams = JsonConvert.DeserializeObject<List<Team>>(Json);
     }
 
     /*public void DisableTournois(Tournois untournois)
