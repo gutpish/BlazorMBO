@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorMBO.Data;
+using Syncfusion.Blazor;
 
 namespace BlazorMBO
 {
@@ -29,11 +30,13 @@ namespace BlazorMBO
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSyncfusionBlazor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjI2NzM5QDMxMzgyZTMwMmUzMEhSaTdjcmcyUDlhOWk5VHdsRU55N2xHQWtDNjAyd3NTVis0VHQ4dVlDY1E9");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
