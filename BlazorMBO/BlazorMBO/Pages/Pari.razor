@@ -1,0 +1,81 @@
+﻿@using BlazorMBO.Shared;
+@using BlazorMBO.Shared.Classes;
+@using Newtonsoft.Json;
+@using Syncfusion.Blazor.Calendars;
+@page "/Pari"
+<h3>Ici, vous pouvez faire des paris sur vos équipes préférés</h3>
+<SfDatePicker @bind-Value="SelectedDate"></SfDatePicker>
+<button @onclick="GetGameByDay">Chercher les parties</button>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Date de la rencontre</th>
+            <th scope="col">Groupe</th>
+            <th scope="col">Equipe 1</th>
+            <th scope="col">Score</th>
+            <th scope="col">VS</th>
+            <th scope="col">Score</th>
+            <th scope="col">Equipe 2</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item in paris)
+            {
+                <tr>
+                    <td>
+                        @item.DateTime
+                    </td>
+                    <td>
+                        @item.Group
+                    </td>
+                    <td>
+                        @item.TeamAName
+                    </td>
+                    <td>
+                        @item.TeamAScore
+                    </td>
+                    <td>
+                        VS
+                    </td>
+                    <td>
+                        @item.TeamBScore
+                    </td>
+                    <td>
+                        @item.TeamBName
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@code {
+    //Liste des parties par jour
+    public DateTime SelectedDate { get; set; }
+
+    public List<BlazorMBO.Shared.Classes.Pari> paris = new List<BlazorMBO.Shared.Classes.Pari>();
+    private void GetGameByDay()
+    {
+        HttpClient client = new HttpClient();
+        var url = "https://api.sportsdata.io/v3/csgo/scores/json/GamesByDate/" + SelectedDate.ToString("yyyy-MM-dd") + "?key=8d1d7a1aec434e6eac991ba5f5ab0b83";
+        var reponse = client.GetAsync(url).Result;
+        string Json = reponse.Content.ReadAsStringAsync().Result;
+        paris = JsonConvert.DeserializeObject<List<BlazorMBO.Shared.Classes.Pari>>(Json);
+    }
+
+    protected override void OnInitialized()
+    {
+        SelectedDate = DateTime.Now;
+        HttpClient client = new HttpClient();
+        var url = "https://api.sportsdata.io/v3/csgo/scores/json/GamesByDate/" + SelectedDate.ToString("yyyy-MM-dd") + "?key=8d1d7a1aec434e6eac991ba5f5ab0b83";
+        var reponse = client.GetAsync(url).Result;
+        string Json = reponse.Content.ReadAsStringAsync().Result;
+        paris = JsonConvert.DeserializeObject<List<BlazorMBO.Shared.Classes.Pari>>(Json);
+    }
+}
