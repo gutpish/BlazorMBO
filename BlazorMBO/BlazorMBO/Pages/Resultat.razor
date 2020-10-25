@@ -178,11 +178,6 @@
     public List<Competition> tournois = new List<Competition>();
     public List<Saison> saisons = new List<Saison>();
     public List<Team> teams = new List<Team>();
-    public int mdo { get; set; } = 5;
-    public string twitter { get; set; } = "Twitter";
-    public string fat { get; set; } = "FAT";
-    public decimal PUTE { get; set; } = 0.12M;
-    public string tarace { get; set; } = "test1";
     public void GetCompetition()
     {
         HttpClient client = new HttpClient();
@@ -206,11 +201,4 @@
         teams = JsonConvert.DeserializeObject<List<Team>>(Json);
     }
 
-    /*public void DisableTournois(Tournois untournois)
-    {
-        if (tournois.Contains(untournois))
-        {
-            tournois.Remove(untournois);
-        }
-    }*/
 }
