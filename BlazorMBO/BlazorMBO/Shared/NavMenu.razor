@@ -1,6 +1,6 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">BlazorMBO</a>
-    <button class="navbar-toggler">
+    <button class="navbar-toggler"><!--@onclick="ToggleNavMenu">-->
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
@@ -30,4 +30,13 @@
     </ul>
 </div>
 
+<!-- A revoir car provoque des bugs
+    @code {
+    /*private bool collapseNavMenu = false;
 
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}-->

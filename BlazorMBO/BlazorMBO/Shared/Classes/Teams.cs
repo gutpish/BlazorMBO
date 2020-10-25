@@ -28,9 +28,4 @@ namespace BlazorMBO.Shared.Classes
         public string YouTube { get; set; }
         public string Instagram { get; set; }
     }
-
-    public class Root
-    {
-        public List<Team> MyArray { get; set; }
-    }
 }

@@ -1,0 +1,62 @@
+﻿@using Newtonsoft.Json;
+@using BlazorMBO.Shared.Classes;  
+@page "/Pari_match/GameId"
+<h3>Pari_match</h3>
+<div class="table-bordered">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Team 1</th>
+                <th scope="col">Vote</th>
+                <th scope="col">VS</th>
+                <th scope="col">Team 2</th>
+                <th scope="col">Vote</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in MyArray)
+             {
+             <tr>
+                        <td>
+                            @item.Game.TeamAName
+                        </td>
+                        <td>
+                            <div><label>Mettez un score <InputText></InputText></label></div>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            @item.Game.TeamBName
+                        </td>
+                        <td>
+                            <div><label>Mettez un score <InputText></InputText></label></div>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+             </tr>
+             }
+        </tbody>
+    </table>
+</div>
+@code {
+    [Parameter]
+    public Game GameId { get; set; }
+
+    public List<MyArray> MyArray{ get; set; }
+    protected override void OnInitialized()
+    {
+        HttpClient client = new HttpClient();
+        var url = "https://api.sportsdata.io/v3/csgo/stats/json/BoxScore/" + GameId + "?key=8d1d7a1aec434e6eac991ba5f5ab0b83";
+        var reponse = client.GetAsync(url).Result;
+        string Json = reponse.Content.ReadAsStringAsync().Result;
+        MyArray = JsonConvert.DeserializeObject<List<MyArray>>(Json);
+    }
+}
