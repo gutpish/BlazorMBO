@@ -17,10 +17,9 @@
             </tr>
         </thead>
         <tbody>
-             @foreach (var item in MyArray)
+            @foreach (var item in MyArray)
              {
              <tr>
-                 @item.Game.GameId
                         <td>
                             @item.Game.TeamAName
                         </td>
@@ -48,8 +47,9 @@
     </table>
 </div>
 @code {
-    public Game GameId;
-    
+    [Parameter]
+    public Game GameId { get; set; }
+
     public List<MyArray> MyArray{ get; set; }
     protected override void OnInitialized()
     {
