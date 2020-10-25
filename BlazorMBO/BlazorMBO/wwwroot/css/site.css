@@ -180,4 +180,159 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+    .navbar_pers {
+        background-color: #483380 !important;
+    }
+
+    .div1 {
+        max-height: 500px;
+        min-height: 500px;
+        background-color: #F2F2F2;
+    }
+
+    .div1_text {
+        top: 20%;
+        text-align: center;
+        font-family: 'Staatliches', cursive;
+        font-size: 100px;
+        color: #0286D9;
+    }
+
+    .div1_text2 {
+        padding-top: 1%;
+    }
+
+    .div2 {
+        min-height: 230px;
+        max-height: 230px;
+        background-color: #D91818;
+    }
+
+    .div2_text1 {
+        font-family: 'Staatliches', cursive;
+        color: white;
+        padding-top: 5%;
+        padding-left: 5%;
+    }
+
+    .div2_img {
+        max-height: 30%;
+        height: auto;
+        padding-top: 5% !important;
+    }
+
+    .div3 {
+        min-height: 230px;
+        max-height: 230px;
+        background-color: #0286D9;
+    }
+
+    .div3_text1 {
+        font-family: 'Staatliches', cursive;
+        color: white;
+        padding-top: 4%;
+        padding-left: 55%;
+    }
+
+    .div3_img {
+        max-height: 30%;
+        height: auto;
+        padding-top: 5% !important;
+    }
+
+    .div4 {
+        padding-top: 7%;
+        padding-left: 2%;
+        background-color: #F2F2F2;
+        max-height: 320px;
+        min-height: 320px;
+    }
+
+    .row_pers {
+        padding-top: 3%;
+    }
+
+    .btn_pers {
+        margin-top: 1%;
+    }
+
+    .btn_centered {
+        margin-right: 2%;
+        margin-left: 2%;
+    }
+
+
+
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 600;
+        font-size: 40px;
+    }
+
+    .text {
+        position: absolute;
+        width: 420px;
+        left: 50%;
+        margin-left: -225px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    p {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+    }
+
+    .word {
+        position: absolute;
+        width: 220px;
+        opacity: 0;
+    }
+
+    .letter {
+        display: inline-block;
+        position: relative;
+        float: left;
+        transform: translateZ(25px);
+        transform-origin: 50% 50% 25px;
+    }
+
+        .letter.out {
+            transform: rotateX(90deg);
+            transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        }
+
+        .letter.behind {
+            transform: rotateX(-90deg);
+        }
+
+        .letter.in {
+            transform: rotateX(0deg);
+            transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+    .wisteria {
+        color: #8e44ad;
+    }
+
+    .belize {
+        color: #2980b9;
+    }
+
+    .pomegranate {
+        color: #c0392b;
+    }
+
+    .green {
+        color: #16a085;
+    }
+
+    .midnight {
+        color: #2c3e50;
+    }
+
 }
