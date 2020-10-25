@@ -9,4 +9,8 @@
     <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.42" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>
